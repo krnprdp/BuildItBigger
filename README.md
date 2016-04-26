@@ -6,3 +6,5 @@ jokes, a Google Could Endpoints(GCE) project that serves those jokes, an Android
 containing an activity for displaying jokes, and an Android app that fetches jokes from the
 GCE module and passes them to the Android Library for display.
 
+![alt tag] (https://github.com/krnprdp/BuildItBigger/blob/master/Flow.png)
+
