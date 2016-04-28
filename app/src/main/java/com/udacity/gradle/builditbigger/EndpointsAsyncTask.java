@@ -1,10 +1,16 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.Pair;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.androidjokeslibrary.JokesActivity;
 import com.example.pradeep.myapplication.backend.myApi.MyApi;
 import com.example.pradeep.myapplication.backend.myApi.model.GetJokesBean;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -20,6 +26,11 @@ import java.io.IOException;
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -60,6 +71,13 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        if (result != null && result != "") {
+            Intent intent = new Intent(context, JokesActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, result);
+            context.startActivity(intent);
+        } else {
+            Toast.makeText(context, "Network Error. Check your connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
